@@ -25,7 +25,9 @@ public class LinkedListDemo {
         // Removing elements
         names.removeFirst();
         names.remove("Charlie");
+        names.remove("David");
         System.out.println("After removals: " + names);
+
 
         // Iterating and printing
         System.out.println("Iterating:");
