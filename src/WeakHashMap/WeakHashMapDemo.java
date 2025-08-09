@@ -5,28 +5,30 @@ import java.util.WeakHashMap;
 
 public class WeakHashMapDemo {
     public static void main(String[] args) throws InterruptedException {
-        Map<Object, String> map = new WeakHashMap<>();
+        Map<Object, String> cache = new WeakHashMap<>();
 
-        Object key1 = new Object();
-        Object key2 = new Object();
+        Object userSession1 = new Object();
+        Object userSession2 = new Object();
 
-        map.put(key1, "Value 1");
-        map.put(key2, "Value 2");
+        // Add to cache
+        cache.put(userSession1, "User Data 1");
+        cache.put(userSession2, "User Data 2");
 
-        System.out.println("Map before nulling keys: " + map);
+        System.out.println("Cache size before GC: " + cache.size());
 
-        // Remove strong references to key1 and key2
-        key1 = null;
-        key2 = null;
+        // Access data
+        System.out.println("Session1 data: " + cache.get(userSession1));
 
-        // Suggest to JVM to run garbage collector
+        // Remove strong references
+        userSession1 = null;
+
+        // Suggest garbage collection
         System.gc();
-
-        // Wait for GC to run
         Thread.sleep(1000);
 
-        // Entries whose keys were weakly referenced are removed
-        System.out.println("Map after GC and nulling keys: " + map);
+        System.out.println("Cache size after GC: " + cache.size());
+
+        // Remaining entries
+        cache.forEach((k, v) -> System.out.println(k + ": " + v));
     }
 }
-
