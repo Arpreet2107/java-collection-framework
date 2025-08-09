@@ -1,3 +1,5 @@
+package WeakHashMap;
+
 import java.util.Map;
 import java.util.WeakHashMap;
 
